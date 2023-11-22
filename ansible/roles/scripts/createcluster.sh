@@ -1,28 +1,25 @@
 #!/bin/bash
 
 # Credentials File Path
-credentials_file="../../../.credentials" 
-token="" 
+TOKEN=""  
+path=$(pwd)
+credentials_file="${path}/.credentials"  
 
 # Get Credentials
 readCredentials() {
     echo " -> reading credentials..."
-    if [ -e "$credentials_file" ]; then
-        token=$(<"$credentials_file") 
-        echo -e "The .credentials file exists. \n"
-        echo "- - - T - O - K - E - N - - - "
-        echo "$token"
-        echo "- - - - - - - - - - - - - - - "
-    else
-        echo "The .credentials file does not exist."
-    fi
+    while IFS= read -r line
+    do    
+        TOKEN=$line
+    done < $credentials_file
+    echo $TOKEN  
 }
 
-# Login using token and create cluster 
+# Login using TOKEN and create cluster 
 createCluster() {
     echo -e "\n -> verifying credentials \n" 
 
-    rosa login --token="$token" || { echo "ROSA login failed"; exit 1; }
+    rosa login --token="$TOKEN" || { echo "ROSA login failed"; exit 1; }
     
     rosa verify quota || { echo "ROSA verify quota failed"; exit 1; }
     
@@ -46,7 +43,7 @@ createCluster() {
 if command -v rosa > /dev/null; then
     echo "rosa found!"
     readCredentials  
-    #createCluster 
+    createCluster 
 else
     echo "rosa not found. Exiting..."
     exit 1
