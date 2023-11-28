@@ -50,8 +50,7 @@ createCluster() {
 if command -v rosa > /dev/null; then
     echo "Cluster Name in Script: " $1
     echo "Credentials Location: " $2
-    echo -e "rosa found!\n\n"
-    
+    echo -e "rosa found!\n\n"   
     readCredentials $2  
     createCluster $1 
 else
