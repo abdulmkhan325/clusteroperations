@@ -2,38 +2,45 @@
 
 # Credentials File Path
 TOKEN=""  
-path=$(pwd)
-credentials_file="${path}/.credentials"  
-
+  
 # Get Credentials
 readCredentials() {
     echo " -> reading credentials..."
+ 
+    if [ -z "$1" ]; then
+        echo "Error: Credentials file path not provided."
+        exit 1
+    fi
+    
+    cpath=$1
+    
     while IFS= read -r line
     do    
         TOKEN=$line
-    done < $credentials_file
-    echo $TOKEN  
+    done < "$cpath" 
+    echo $TOKEN 
 }
 
 # Login using TOKEN and create cluster 
 createCluster() {
-    echo -e "\n -> verifying credentials \n" 
+    echo -e "\n -> verifying credentials \n"
+    
+    cname=$1  
+    
+    echo $cname  
 
     rosa login --token="$TOKEN" || { echo "ROSA login failed"; exit 1; }
     
     rosa verify quota || { echo "ROSA verify quota failed"; exit 1; }
     
-    rosa create account-roles --mode auto || { echo "ROSA account creation failed"; exit 1; }
+    #rosa create account-roles --mode auto || { echo "ROSA account creation failed"; exit 1; }
 
-    echo -e "\n\n -> Enter your cluster name: " 
-    read cname
-
-    rosa create cluster --cluster-name $cname --sts --mode auto 
+    #rosa create cluster --cluster-name $cname --sts --mode auto 
 
     # check exit status of the commands 
     if [ $? -eq 0 ]; then
         echo -e "\n -> ROSA creating cluster $cname \n" 
-        rosa logs install -c $cname --watch
+        #rosa logs install -c $cname --watch
     else
         echo "ROSA cluster creation failed with exit status $?."
     fi
@@ -41,9 +48,12 @@ createCluster() {
 
 # Check if rosa command is available 
 if command -v rosa > /dev/null; then
-    echo "rosa found!"
-    readCredentials  
-    createCluster 
+    echo "Cluster Name in Script: " $1
+    echo "Credentials Location: " $2
+    echo -e "rosa found!\n\n"
+    
+    readCredentials $2  
+    createCluster $1 
 else
     echo "rosa not found. Exiting..."
     exit 1
