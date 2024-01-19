@@ -1,0 +1,17 @@
+
+Commands Used   
+
+-- In order to run the cluster setup playbook
+ansible-playbook rosa-cluster-create-operations.yml --extra-vars "cluster_name=rosa4v4 credentials_file=/Users/Sunny/Documents/Projects/clusteroperations/ansible/roles/createcluster/scripts/.credentials"
+
+-- Delete the cluster using its name 
+ansible-playbook rosa-cluster-delete-operations.yml --extra-vars "cluster_name=rosa4v3"
+
+-- Describe Cluster by name 
+rosa describe cluster --cluster=<cluster_name> 
+
+-- Delete Cluster by name
+rosa delete cluster --cluster=<cluster_name> --watch --yes 
+rosa delete cluster --cluster=rosa4v4 --watch --yes
+
+ 
