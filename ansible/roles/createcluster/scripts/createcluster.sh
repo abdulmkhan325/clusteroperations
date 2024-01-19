@@ -6,16 +6,17 @@ TOKEN=""
 # Get Credentials
 readCredentials() {
     echo " -> reading credentials..."
- 
+    
     if [ -z "$1" ]; then
         echo "Error: Credentials file path not provided."
         exit 1
     fi
     
     cpath=$1
-    
+
     while IFS= read -r line
     do    
+        echo $line
         TOKEN=$line
     done < "$cpath" 
     echo $TOKEN 
@@ -26,21 +27,20 @@ createCluster() {
     echo -e "\n -> verifying credentials \n"
     
     cname=$1  
-    
-    echo $cname  
 
     rosa login --token="$TOKEN" || { echo "ROSA login failed"; exit 1; }
     
     rosa verify quota || { echo "ROSA verify quota failed"; exit 1; }
     
-    #rosa create account-roles --mode auto || { echo "ROSA account creation failed"; exit 1; }
+    rosa create account-roles --mode auto --yes || { echo "ROSA account creation failed"; exit 1; }
 
-    #rosa create cluster --cluster-name $cname --sts --mode auto 
+    rosa create cluster --cluster-name $cname --sts --mode auto --yes --watch
+
+    rosa logs install -c $cname --watch
 
     # check exit status of the commands 
     if [ $? -eq 0 ]; then
-        echo -e "\n -> ROSA creating cluster $cname \n" 
-        #rosa logs install -c $cname --watch
+        echo -e "\n -> ROSA Cluster $cname created \n" 
     else
         echo "ROSA cluster creation failed with exit status $?."
     fi
