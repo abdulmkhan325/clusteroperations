@@ -2,24 +2,26 @@
 Pipeline Structure - CI/CD
 ------------------
 Ansible
-  - Create Cluster
-  - Delete Cluster
+  - Create Cluster (Bash Script running from an Ansible Playbook)
+  - Delete Cluster (Ansible Playbook)
 
 
 App development + build operator bundle(CI/CD)
 ------------------
 React Web App
   - App can be a simple website 
-Docker + Kubernetes/OCP
-- Operator for your application
-  -  Containerize - TBD
+  - Containerize - Docker
+  - Image CI/CD using Jenkins locally 
 Test application
+
+Running the application on ROSA cluster
+- Creating Operators - Golang
+
 
 Pipeline Structure - CI/CD
 ------------------
 - Tekton-Pipeline
   - Deployment of the operator
-
 
 - ansible folder
   - ansible playbook

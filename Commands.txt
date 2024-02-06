@@ -1,0 +1,21 @@
+
+Commands Used   
+
+-- In order to run the cluster setup playbook
+ansible-playbook ./ansible/rosa-cluster-create-operations.yml --extra-vars "cluster_name=rosa4v5 credentials_file=/Users/Sunny/Documents/Projects/clusteroperations/ansible/roles/createcluster/scripts/.credentials"
+
+-- To view cluster installation logs
+rosa logs install -c rosa4v5 --watch 
+
+-- Delete the cluster using its name 
+ansible-playbook ./ansible/rosa-cluster-delete-operations.yml --extra-vars "cluster_name=rosa4v4"
+
+-- Describe Cluster by name 
+rosa describe cluster --cluster=<cluster_name> 
+
+-- Delete Cluster by name
+rosa delete cluster --cluster=<cluster_name> --watch --yes 
+rosa delete cluster --cluster=rosa4v5 --watch --yes    
+
+"docker-build": "docker build -t $(dockerUsername)/react-todo-app:$(tagName) .",
+"docker-run": "docker run --rm -p 3000:3000 -v $(pwd):/app $(dockerUsername)/react-todo-app:$(tagName)"

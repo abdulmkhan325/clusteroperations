@@ -10,36 +10,35 @@
   failed_when: plugin_exist.rc != 0
 
 - name: Check AWS Cluster
-  ansible.builtin.command: rosa describe cluster --cluster={{ clustername }} -o json
+  ansible.builtin.command: rosa describe cluster --cluster={{ clustername }} -o yaml
   register: check_cluster
-  no_log: true
-  ignore_errors: true
+  no_log: true 
+  ignore_errors: true 
 
-- name: Check Cluster JSON 
+- name: Print if error exists
   debug:
-    msg: "{{ check_cluster.state | from_json | community.general.json_query('state') }}" 
+    msg: "{{ check_cluster.stderr }}" 
+  failed_when: check_cluster.stderr | length > 0
 
+- name: Print cluster exists! 
+  set_fact: 
+    delete_flag: true
+  when: check_cluster.stderr | length == 0  
 
-# - name: Check Cluster Status via JSON
-#   set_fact:
-#        interfaces: "{{ (check_cluster.stdout | from_json).state }}" 
-       #interfaces: (check_cluster.stdout | from_json).state
-       #interfaces: "{{ check_cluster.state }}"
+- name: Print Delete Flag
+  debug:
+    msg: "{{ delete_flag }}"   
 
-# - name: Print interfaces 
-#   debug:
-#     var: "{{ interfaces }}"  
-    
+- name: Delete AWS Cluster
+  ansible.builtin.command: rosa delete cluster --cluster={{ clustername }} --yes
+  register: delete_cluster_stdout
+  when: delete_flag == true
 
-# - ansible.builtin.assert:
-#     that:
-#       - check_cluster.rc == 0
-#     fail_msg: "The Cluster {{ clustername }} does not exist!"
-#     success_msg: "The Cluster {{ clustername }} exists!"
-  
-# - name: Delete AWS Cluster
-#   ansible.builtin.command: rosa delete cluster --cluster={{ clustername }} --watch --yes
-#   register: delete_cluster_stdout
-#   when: check_cluster.rc == 0
+- name: Cluster Delete Initiated
+  debug: msg="{{ delete_cluster_stdout }}"
 
-# - debug: msg="{{ delete_cluster_stdout.stdout }}"
+- name: Waiting till Cluster Deleted Successfully
+  ansible.builtin.command: rosa describe cluster --cluster={{ clustername }}
+  register: cmd_res
+  msg: "{{ Cluster Deletion In Progress! }}"  
+  until: cmd_res.stderr | length > 0 
