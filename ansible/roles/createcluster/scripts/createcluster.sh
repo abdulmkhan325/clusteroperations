@@ -36,7 +36,8 @@ createCluster() {
 
     rosa create cluster --cluster-name $cname --sts --mode auto --yes --watch
 
-    rosa logs install -c $cname --watch
+    #rosa logs install -c $cname --watch
+    rosa describe cluster --cluster=$cname
 
     # check exit status of the commands 
     if [ $? -eq 0 ]; then
