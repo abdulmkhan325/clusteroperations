@@ -1,13 +1,9 @@
 import java.text.SimpleDateFormat
 import java.util.Date
 
-pipeline {
+pipeline {  
     agent any
-     
-    def date = new Date()
-    def dateStamp = new SimpleDateFormat("yyyy-MM-dd").format(date)
-    def clusterName = "rosatest-${dateStamp}"
-
+      
     environment {
         ROSA_TOKEN =  credentials('aws-token-rosa') 
     }
@@ -15,7 +11,10 @@ pipeline {
     stages {
         stage('Initialize') {
             steps {
-                script { 
+                script {
+                    def date = new Date()
+                    def dateStamp = new SimpleDateFormat("yyyy-MM-dd").format(date)
+                    def clusterName = "rosatest-${dateStamp}"
                     echo "Cluster Name: ${clusterName}"
                 }
             }
