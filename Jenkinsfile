@@ -27,6 +27,7 @@ pipeline {
                     ls
                     env
                 """.stripIndent()*/
+                echo 'Checking out from Git Repo....'
             }
         }
         // Add more stages as needed for your pipeline sdfgsgfds
@@ -36,6 +37,7 @@ pipeline {
                     sh "ansible-playbook ansible/rosa-cluster-create-operations.yml -e 'cluster_name=${clusterName}' "
                     clusterDeleted = true
                 }*/
+                echo 'Creating AWS cluster...'
             }
         }
 
