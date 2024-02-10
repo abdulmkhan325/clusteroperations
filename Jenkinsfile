@@ -1,4 +1,6 @@
 import java.text.SimpleDateFormat
+import java.util.Date
+
 pipeline {
     agent any
 
@@ -10,6 +12,13 @@ pipeline {
     }
 
     stages {
+        stage('Initialize') {
+            steps {
+                script { 
+                    echo "Cluster Name: ${clusterName}"
+                }
+            }
+        }
         stage('Checkout') {
             steps {
                 // Checkout code from Git repository
@@ -30,7 +39,7 @@ pipeline {
             }
         }
 
-        stage('Just Print') {
+        stage('ROSA TOKEN PRINT') {
             steps {
                 script {
                     echo "ROSA_TOKEN value: ${env.ROSA_TOKEN}"
