@@ -3,7 +3,8 @@ import java.util.Date
 
 pipeline {
     agent any
-
+     
+    def date = new Date()
     def dateStamp = new SimpleDateFormat("yyyy-MM-dd").format(date)
     def clusterName = "rosatest-${dateStamp}"
 
