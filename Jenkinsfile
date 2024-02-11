@@ -17,11 +17,11 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Checkout code from Git repository
-                /*sh """
+                sh """
                     pwd
                     ls
                     env
-                """.stripIndent()*/ 
+                """.stripIndent()
             }
         }
         // Add more stages as needed for your pipeline sdfgsgfds
