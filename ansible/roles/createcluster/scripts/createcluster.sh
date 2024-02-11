@@ -35,7 +35,7 @@ createCluster() {
     rosa create account-roles --mode auto --yes || { echo "ROSA account creation failed"; exit 1; }
 
     #rosa create cluster --cluster-name $cname --sts --mode auto --yes --watch
-
+    ##
     #rosa logs install -c $cname --watch
     rosa describe cluster --cluster=$cname
 
