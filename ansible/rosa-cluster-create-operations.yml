@@ -14,3 +14,4 @@
     vars: 
       clustername: '{{ cluster_name }}'
       filepath: '{{ credentials_file }}'   
+      token: '{{ token }}' 

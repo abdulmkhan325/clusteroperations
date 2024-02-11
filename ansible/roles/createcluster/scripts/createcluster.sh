@@ -34,7 +34,7 @@ createCluster() {
     
     rosa create account-roles --mode auto --yes || { echo "ROSA account creation failed"; exit 1; }
 
-    rosa create cluster --cluster-name $cname --sts --mode auto --yes --watch
+    #rosa create cluster --cluster-name $cname --sts --mode auto --yes --watch
 
     #rosa logs install -c $cname --watch
     rosa describe cluster --cluster=$cname
@@ -52,7 +52,12 @@ if command -v rosa > /dev/null; then
     echo "Cluster Name in Script: " $1
     echo "Credentials Location: " $2
     echo -e "rosa found!\n\n"   
-    readCredentials $2  
+    
+    if [ "$2" != "NONE" ]; then 
+        readCredentials $2  
+    else 
+        TOKEN=$3
+    fi       
     createCluster $1 
 else
     echo "rosa not found. Exiting..."

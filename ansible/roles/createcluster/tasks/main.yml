@@ -3,7 +3,7 @@
     msg: This is the cluster name '{{ clustername }}' and '{{ filepath }}' 
  
 - name: Create ROSA Cluster Role 
-  script: roles/createcluster/scripts/createcluster.sh "{{ clustername }}" "{{ filepath }}"   
+  script: roles/createcluster/scripts/createcluster.sh "{{ clustername }}" "{{ filepath }}" "{{ token }}"    
   register: output
 
 - debug:
