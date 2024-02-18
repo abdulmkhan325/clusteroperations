@@ -19,3 +19,13 @@ rosa delete cluster --cluster=rosa4v5 --watch --yes
 
 "docker-build": "docker build -t $(dockerUsername)/react-todo-app:$(tagName) .",
 "docker-run": "docker run --rm -p 3000:3000 -v $(pwd):/app $(dockerUsername)/react-todo-app:$(tagName)"
+
+
+./createcluster2.sh "rosa4v5" "/Users/Sunny/Documents/Projects/clusteroperations/ansible/roles/createcluster/scripts/.credentials"
+
+./createcluster2.sh "rosa4v5" "pass"
+
+
+ansible-playbook rosa-cluster-create-operations.yml --extra-vars "cluster_name=rosa4v5 token=/Users/Sunny/Documents/Projects/clusteroperations/ansible/roles/createcluster/scripts/.credentials"
+
+ansible-playbook rosa-cluster-create-operations.yml --extra-vars "cluster_name=rosa4v5 token=pass"

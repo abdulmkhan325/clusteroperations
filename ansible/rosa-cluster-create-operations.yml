@@ -10,8 +10,7 @@
  
   - name: Create the ROSA AWS cluster
     include_role:
-      name: createcluster 
+      name: createcluster
     vars: 
-      clustername: '{{ cluster_name }}'
-      filepath: '{{ credentials_file }}'   
+      clustername: '{{ cluster_name }}'   
       token: '{{ token }}' 

@@ -28,7 +28,7 @@ pipeline {
         stage('Create AWS Cluster') {
             steps {
                 catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE'){
-                    sh "ansible-playbook ansible/rosa-cluster-create-operations.yml -e 'cluster_name=${clusterName}' -e credentials_file=NONE -e token='${ROSA_TOKEN}'  "
+                    sh "ansible-playbook ansible/rosa-cluster-create-operations.yml -e 'cluster_name=${clusterName}' -e token='${ROSA_TOKEN}'  "
                 }
             }
         }       
