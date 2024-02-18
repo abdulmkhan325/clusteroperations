@@ -14,18 +14,11 @@ readCredentials() {
     
     cpath=$1
 
-    if [ -f "$1" ]; then
-        # If it's a file, read credentials from the file
-        while IFS= read -r line
-        do    
-            echo $line
-            TOKEN=$line
-        done < "$cpath" 
-    else
-        # If it's not a file, treat it as a token string
-        TOKEN=$cpath
-    fi  
-
+    while IFS= read -r line
+    do    
+        echo $line
+        TOKEN=$line
+    done < "$cpath" 
     echo $TOKEN 
 }
 
@@ -57,10 +50,15 @@ createCluster() {
 # Check if rosa command is available 
 if command -v rosa > /dev/null; then
     echo "Cluster Name in Script: " $1
-    echo "Credentials: " $2
-    #echo -e "rosa found!\n\n"   
-    readCredentials $2 
-    #createCluster $1 
+    echo "Credentials Location: " $2
+    echo -e "rosa found!\n\n"   
+    
+    if [ "$2" != "NONE" ]; then 
+        readCredentials $2  
+    else 
+        TOKEN=$3
+    fi       
+    createCluster $1 
 else
     echo "rosa not found. Exiting..."
     exit 1
