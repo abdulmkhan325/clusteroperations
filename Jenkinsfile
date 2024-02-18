@@ -33,11 +33,13 @@ pipeline {
         // Rosa Login
         stage('ROSA Installation and Login') {
             steps { 
-                sh "wget https://mirror.openshift.com/pub/openshift-v4/clients/rosa/latest/rosa-linux.tar.gz
+                sh """
+                    wget https://mirror.openshift.com/pub/openshift-v4/clients/rosa/latest/rosa-linux.tar.gz
                     tar xvf rosa-linux.tar.gz
                     sudo mv rosa /usr/local/bin/rosa
                     rosa version
-                    rosa login -t '${ROSA_TOKEN}'"    
+                    rosa login -t '${ROSA_TOKEN}'
+                    """.stripIndent()    
             }
         }
         // Create AWS Cluster
