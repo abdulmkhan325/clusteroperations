@@ -40,5 +40,4 @@
 - name: Waiting till Cluster Deleted Successfully
   ansible.builtin.command: rosa describe cluster --cluster={{ clustername }}
   register: cmd_res
-  msg: "{{ Cluster Deletion In Progress! }}"  
   until: cmd_res.stderr | length > 0 
