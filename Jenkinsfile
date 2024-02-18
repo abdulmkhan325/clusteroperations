@@ -24,6 +24,12 @@ pipeline {
                 """.stripIndent()
             }
         }
+        //Ansible
+        stage('Ansible Check') {
+            steps { 
+                sh "ansible --version"    
+            }
+        }
         // Add more stages as needed for your pipeline sdfgsgfds
         stage('Create AWS Cluster') {
             steps {
