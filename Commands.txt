@@ -29,3 +29,13 @@ rosa delete cluster --cluster=rosa4v5 --watch --yes
 ansible-playbook rosa-cluster-create-operations.yml --extra-vars "cluster_name=rosa4v5 token=/Users/Sunny/Documents/Projects/clusteroperations/ansible/roles/createcluster/scripts/.credentials"
 
 ansible-playbook rosa-cluster-create-operations.yml --extra-vars "cluster_name=rosa4v5 token=pass"
+
+
+
+sudo yum install ansible 
+wget https://mirror.openshift.com/pub/openshift-v4/clients/rosa/latest/rosa-linux.tar.gz
+                    tar xvf rosa-linux.tar.gz
+                    pwd
+                    ls
+                    mv rosa /usr/local/bin/rosa
+                    rosa version
