@@ -19,8 +19,8 @@ pipeline {
             steps {
                 sh """
                     pwd
-                    ls 
-                    env
+                    ls  
+                    aws --version
                 """.stripIndent()
             }
         }
@@ -31,18 +31,6 @@ pipeline {
                     sudo -S yum install ansible -y
                     ansible --version
                     """.stripIndent()  
-            }
-        }
-        // Rosa Login
-        stage('ROSA Install and Login') {
-            steps { 
-                sh """
-                    wget https://mirror.openshift.com/pub/openshift-v4/clients/rosa/latest/rosa-linux.tar.gz
-                    tar xvf rosa-linux.tar.gz 
-                    sudo -S mv rosa /usr/local/bin/rosa
-                    rosa version
-                    rosa login -t '${ROSA_TOKEN}'
-                    """.stripIndent()    
             }
         }
     }
