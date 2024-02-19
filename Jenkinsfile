@@ -3,7 +3,7 @@ import java.util.Date
 
 def date = new Date()
 def dateStamp = new SimpleDateFormat("yyyy-MM-dd").format(date)
-def clusterName = "rosatest-${dateStamp}"
+def clusterName = "rosa-${dateStamp}"
 echo "Cluster Name: ${clusterName}"
 
 pipeline {  
@@ -14,45 +14,36 @@ pipeline {
     }
 
     stages { 
-        stage('Checkout') {
+        // Checkout code from Git repository
+        stage('Enviroment Variables') {
             steps {
-                // Checkout code from Git repository
                 sh """
                     pwd
-                    ls
+                    ls 
                     env
                 """.stripIndent()
             }
         }
         // Ansible Check
-        stage('Ansible Check') {
-            steps { 
-                sh "ansible --version"    
+        stage('Ansible Install and Check') {
+            steps {
+                sh """
+                    sudo yum install ansible
+                    ansible --version
+                    """.stripIndent()  
             }
         }
         // Rosa Login
-        stage('ROSA Login') {
+        stage('ROSA Install and Login') {
             steps { 
                 sh """
+                    wget https://mirror.openshift.com/pub/openshift-v4/clients/rosa/latest/rosa-linux.tar.gz
+                    tar xvf rosa-linux.tar.gz 
+                    sudo mv rosa /usr/local/bin/rosa
+                    rosa version
                     rosa login -t '${ROSA_TOKEN}'
                     """.stripIndent()    
             }
         }
-        // Create AWS Cluster
-        stage('Create AWS ROSA Cluster') {
-            steps {
-                catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE'){
-                    sh "ansible-playbook ansible/rosa-cluster-create-operations.yml -e 'cluster_name=${clusterName}' -e token='${ROSA_TOKEN}'"
-                }
-            }
-        }
-        // Delete AWS Cluster
-        stage('Delete AWS Rosa Cluster') {
-            steps {
-                catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE'){
-                    sh "ansible-playbook ansible/rosa-cluster-delete-operations.yml -e 'cluster_name=${clusterName}'"
-                }
-            }
-        }        
     }
 }

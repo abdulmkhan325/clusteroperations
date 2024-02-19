@@ -39,3 +39,21 @@ wget https://mirror.openshift.com/pub/openshift-v4/clients/rosa/latest/rosa-linu
                     ls
                     mv rosa /usr/local/bin/rosa
                     rosa version
+
+
+        // Create AWS Cluster
+        stage('Create AWS ROSA Cluster') {
+            steps {
+                catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE'){
+                    sh "ansible-playbook ansible/rosa-cluster-create-operations.yml -e 'cluster_name=${clusterName}' -e token='${ROSA_TOKEN}'"
+                }
+            }
+        }
+        // Delete AWS Cluster
+        stage('Delete AWS Rosa Cluster') {
+            steps {
+                catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE'){
+                    sh "ansible-playbook ansible/rosa-cluster-delete-operations.yml -e 'cluster_name=${clusterName}'"
+                }
+            }
+        } 
