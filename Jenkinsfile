@@ -28,7 +28,7 @@ pipeline {
         stage('Ansible Install and Check') {
             steps {
                 sh """
-                    sudo yum install ansible
+                    sudo -S yum install ansible -y
                     ansible --version
                     """.stripIndent()  
             }
@@ -39,7 +39,7 @@ pipeline {
                 sh """
                     wget https://mirror.openshift.com/pub/openshift-v4/clients/rosa/latest/rosa-linux.tar.gz
                     tar xvf rosa-linux.tar.gz 
-                    sudo mv rosa /usr/local/bin/rosa
+                    sudo -S mv rosa /usr/local/bin/rosa
                     rosa version
                     rosa login -t '${ROSA_TOKEN}'
                     """.stripIndent()    
