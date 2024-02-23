@@ -54,11 +54,18 @@ pipeline {
         stage('ROSA Download and Install') {
             steps {
                 script {
-                    rosaCommand = "Sunny here"
+                    // Check if rosa command exists
+                    def rosaCommandExists = sh(script: 'which rosa', returnStatus: true) == 0
+            
+                    if (rosaCommandExists) {
+                        rosaCommand = "rosa command exists"
+                    }   else {
+                        error("rosa command not found")
+                    }
                 }  
                 sh "echo THIS IS ---> ${rosaCommand}"
-            }
-        }
+            }  
+        } 
         // Rosa Login
         stage('ROSA Install and Login') {
             steps { 
