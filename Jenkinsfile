@@ -10,7 +10,7 @@ pipeline {
     agent any
   
     environment {
-        ROSA_TOKEN =  credentials('aws-token-rosa') 
+        //ROSA_TOKEN =  credentials('aws-token-rosa') 
         AWS_CREDENTIALS_ID = 'aws-majid-v2'
     }
 
