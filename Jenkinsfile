@@ -11,6 +11,7 @@ pipeline {
   
     environment {
         ROSA_TOKEN =  credentials('aws-token-rosa') 
+        AWS_CREDENTIALS_ID = 'aws-majid-v2'
     }
 
     stages { 
@@ -18,20 +19,36 @@ pipeline {
         stage('Enviroment Variables') {
             steps {
                 sh """
-                    pwd
-                    ls  
-                    aws --version
+                    ls 
                 """.stripIndent()
             }
         }
-        // Ansible Check
+        // Check sudo permissions for jenkins
+        stage('Check sudo privileage') {
+            steps { 
+                sh """
+                    whoami
+                    sudo ls
+                """
+            }
+        }
+        // Upgrade yum Package Manager
+        stage('Yum Upgrade') { 
+            steps {
+                sh """  
+                    sudo yum upgrade -y
+                    yum --version
+                """.stripIndent()  
+            }
+        } 
+        // Ansible Install and Check
         stage('Ansible Install and Check') {
             steps {
                 sh """
-                    sudo -S yum install ansible -y
+                    sudo yum install ansible -y
                     ansible --version
                     """.stripIndent()  
             }
-        }
+        }  
     }
 }
