@@ -53,7 +53,9 @@ pipeline {
         // Rosa Download and Install
         stage('ROSA Download and Install') {
             steps {
-                rosaCommand = sh "which rosa"  
+                script {
+                    rosaCommand = sh "which rosa"
+                }  
                 sh "echo THIS IS ---> ${rosaCommand}"
             }
         }
