@@ -55,7 +55,7 @@ pipeline {
             steps {
                 script {
                     def rosaCommand = sh(script: "which rosa", returnStdout: true).trim()
-                    echo "This is rosaCommand -> ${rosaCommand}"
+                    println "This is rosaCommand -> ${rosaCommand}"
                 }   
             }
         }
