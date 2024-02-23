@@ -54,7 +54,7 @@ pipeline {
         stage('ROSA Download and Install') {
             steps {
                 script {
-                    rosaCommand = sh "which rosa"
+                    rosaCommand = "Sunny here"
                 }  
                 sh "echo THIS IS ---> ${rosaCommand}"
             }
