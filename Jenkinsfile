@@ -56,7 +56,7 @@ pipeline {
                 script { 
                     def rosaCommand = sh(script: "which rosa", returnStdout: true).trim()
                     sh  """ 
-                        echo ${rosaCommand}
+                        echo "This is rosaCommand -> ${rosaCommand}"
                         """ 
                 }   
             }
