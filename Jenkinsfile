@@ -55,13 +55,7 @@ pipeline {
             steps {
                 script {
                     // Check if rosa command exists
-                    def rosaCommandExists = sh(script: 'which rosa', returnStatus: true) == 0
-            
-                    if (rosaCommandExists) {
-                        rosaCommand = "rosa command exists"
-                    }   else {
-                        error("rosa command not found")
-                    }
+                    def rosaCommandExists = sh(script: 'which rosa', returnStatus: true)  
                 }  
                 sh "echo THIS IS ---> ${rosaCommand}"
             }  
