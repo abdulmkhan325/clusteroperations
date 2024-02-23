@@ -53,10 +53,11 @@ pipeline {
         // Rosa Download and Install
         stage('ROSA Download and Install') {
             steps {
-                 script {
-                      foo = "bar"
-                 }
-                 sh "echo ${foo}"
+                script {  
+                    def rosaCommand = sh(script: "which rosa", returnStdout: true).trim()
+                    //println "This is -> ${rosaCommand}"
+                } 
+                sh "echo THIS IS ---> ${rosaCommand}"
             }
         }
         // Rosa Login
