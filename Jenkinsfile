@@ -10,7 +10,7 @@ pipeline {
     agent any
   
     environment {
-        //ROSA_TOKEN =  credentials('aws-token-rosa') 
+        ROSA_TOKEN =  credentials('aws-token-rosa') 
         AWS_CREDENTIALS_ID = 'aws-majid-v2'
     }
 
@@ -48,6 +48,23 @@ pipeline {
                     sudo yum install ansible -y
                     ansible --version
                     """.stripIndent()  
+            }
+        }
+        // Rosa Download and Install
+        stage('ROSA Download and Install') {
+            steps { 
+                sh """
+                    def rosaCommand = sh(script: "which rosa", returnStdout: true).trim()
+                    echo rosaCommand
+                    """.stripIndent()    
+            }
+        }
+        // Rosa Login
+        stage('ROSA Install and Login') {
+            steps { 
+                sh """ 
+                    rosa whoami
+                    """.stripIndent()    
             }
         }  
     }
