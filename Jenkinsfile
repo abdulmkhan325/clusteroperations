@@ -19,7 +19,7 @@ pipeline {
         stage('Enviroment Variables') {
             steps {
                 sh """
-                    ls 
+                    env 
                 """.stripIndent()
             }
         }
