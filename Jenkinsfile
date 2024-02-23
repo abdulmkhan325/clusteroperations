@@ -52,11 +52,13 @@ pipeline {
         }
         // Rosa Download and Install
         stage('ROSA Download and Install') {
-            steps { 
-                def rosaCommand = sh(script: "which rosa", returnStdout: true).trim()
-                sh """ 
-                    echo ${rosaCommand}
-                    """.stripIndent()    
+            steps {
+                script { 
+                    def rosaCommand = sh(script: "which rosa", returnStdout: true).trim()
+                    sh  """ 
+                        echo ${rosaCommand}
+                        """ 
+                }   
             }
         }
         // Rosa Login
