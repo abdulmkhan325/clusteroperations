@@ -54,8 +54,7 @@ pipeline {
         stage('ROSA Download and Install') {
             steps {
                 script {  
-                    def rosaCommand = sh(script: "which rosa", returnStdout: true).trim()
-                    //println "This is -> ${rosaCommand}"
+                    rosaCommand = sh(script: "which rosa", returnStdout: true).trim() 
                 } 
                 sh "echo THIS IS ---> ${rosaCommand}"
             }
