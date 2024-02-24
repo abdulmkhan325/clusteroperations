@@ -124,7 +124,7 @@ pipeline {
                 sh """
                     ls react-app  
                     pwd
-                    docker build react-app/Dockerfile -t ${dockerImage}      
+                    docker build ./react-app/Dockerfile -t ${dockerImage}      
                 """
             }
         }
