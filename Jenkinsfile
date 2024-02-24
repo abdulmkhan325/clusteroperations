@@ -55,10 +55,25 @@ pipeline {
                     sudo yum install ansible -y
                     sudo yum install docker -y 
                     ansible --version
-                    docker --version 
-                    sudo service docker start    
-                    sudo systemctl start docker
+                    docker --version  
                     """.stripIndent()  
+            }
+        } 
+        // Setup Docker 
+        stage('Docker Setup and Start it') {
+            steps {
+                sh  """
+                    if [ $(getent group docker) ]; then  
+                        echo "docker group exists"  
+                        sudo usermod -aG docker jenkins
+                    else  
+                        echo "group does not exist."
+                        sudo groupadd docker
+                        sudo usermod -aG docker jenkins
+                    fi 
+                    """.stripIndent()
+                   
+                }
             }
         } 
         // Rosa Download and Install
