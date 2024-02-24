@@ -122,7 +122,7 @@ pipeline {
         stage("Docker Build"){
             steps {    
                 sh """
-                    ls  
+                    ls react-app  
                     pwd
                     docker build react-app/Dockerfile -t ${dockerImage}      
                 """
