@@ -56,6 +56,8 @@ pipeline {
                     sudo yum install docker -y 
                     ansible --version
                     docker --version 
+                    sudo service docker start    
+                    sudo systemctl start docker
                     """.stripIndent()  
             }
         } 
@@ -98,7 +100,7 @@ pipeline {
         stage("Docker Login"){
             steps { 
                 sh """
-                    docker login -u ${dockerUserName} -p ${DOCKER_PASS}  
+                    docker login -u ${dockerUserName} -p ${DOCKER_PASS}   
                 """
             }
         }
