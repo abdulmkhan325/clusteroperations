@@ -48,14 +48,16 @@ pipeline {
             }
         } 
         // Ansible Install and Check
-        stage('Ansible Install and Check') {
+        stage('Install Dependencies') {
             steps {
                 sh """
                     sudo yum install ansible -y
+                    sudo yum install docker -y 
                     ansible --version
+                    docker --version 
                     """.stripIndent()  
             }
-        }
+        } 
         // Rosa Download and Install
         stage('ROSA Download and Install') {
             steps {
