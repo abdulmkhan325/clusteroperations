@@ -56,13 +56,21 @@ pipeline {
                 script {
                     // Check if rosa command exists
                     def rosaCommand = sh(script: 'rosa', returnStatus: true)  
-                    sh "echo THIS IS ---> ${rosaCommand}"
                     println "this is print ln output = ${rosaCommand}"
-                }   
+                    if (rosaCommand == 127) {
+                        sh """
+                            wget https://mirror.openshift.com/pub/openshift-v4/clients/rosa/latest/rosa-linux.tar.gz
+                            tar xvf rosa-linux.tar.gz 
+                            sudo mv rosa /usr/local/bin/rosa
+                           """.stripIndent()
+                    } else {
+                        sh "rosa version"
+                    }
+                }
             }  
         } 
         // Rosa Login
-        stage('ROSA Install and Login') {
+        stage('ROSA Login') {
             steps { 
                 sh """ 
                     rosa whoami
