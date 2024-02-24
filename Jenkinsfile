@@ -140,7 +140,7 @@ pipeline {
         stage("Docker Push"){
             steps { 
                 sh """
-                    docker --version   
+                    docker push abdulmkhan325/github-projects:${dateStamp}     
                 """
             }
         }
