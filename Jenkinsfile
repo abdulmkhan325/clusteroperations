@@ -4,6 +4,11 @@ import java.util.Date
 def date = new Date()
 def dateStamp = new SimpleDateFormat("yyyy-MM-dd").format(date)
 def clusterName = "rosa-${dateStamp}"
+
+//docker creds
+def dockerUserName = "abdulmkhan325"
+def dockerRepo = "abdulmkhan325/github-projects"
+
 echo "Cluster Name: ${clusterName}"
 
 pipeline {  
@@ -11,6 +16,7 @@ pipeline {
   
     environment {
         ROSA_TOKEN =  credentials('aws-token-rosa') 
+        DOCKER_PASS = credentials('docker-password') 
         AWS_CREDENTIALS_ID = 'aws-majid-v2'
     }
 
@@ -85,5 +91,11 @@ pipeline {
                 }
             }
         }  
+        // Docker login
+        stage("Docker Login"){
+            sh """
+              docker login -u ${dockerUserName} -p ${DOCKER_PASS} ${dockerRepo}
+            """
+        }
     }
 }
