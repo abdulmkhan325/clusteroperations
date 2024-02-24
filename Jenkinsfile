@@ -4,6 +4,7 @@ import java.util.Date
 def date = new Date()
 def dateStamp = new SimpleDateFormat("yyyy-MM-dd").format(date)
 def clusterName = "rosa-${dateStamp}"
+def dockerImage = "react-app:v1-${dateStamp}"
 
 //docker creds
 def dockerUserName = "abdulmkhan325"
@@ -98,6 +99,30 @@ pipeline {
             steps { 
                 sh """
                     docker login -u ${dockerUserName} -p ${DOCKER_PASS}  
+                """
+            }
+        }
+        // Docker build
+        stage("Docker Build"){
+            steps {    
+                sh """
+                    docker build react-app/Dockerfile -t ${dockerImage}      
+                """
+            }
+        }
+        // Docker Tag
+        stage("Docker Tag"){
+            steps { 
+                sh """
+                    docker image ls   
+                """
+            }
+        }
+        // Docker Push
+        stage("Docker Push"){
+            steps { 
+                sh """
+                    docker --version   
                 """
             }
         }
