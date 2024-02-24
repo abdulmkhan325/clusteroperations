@@ -132,7 +132,7 @@ pipeline {
         stage("Docker Tag"){
             steps { 
                 sh """
-                    docker image ls   
+                    docker tag ${dockerImage} abdulmkhan325/github-projects:${dockerImage}   
                 """
             }
         }
