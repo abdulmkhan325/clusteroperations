@@ -80,7 +80,7 @@ pipeline {
                 ]]) {
                     sh """  
                         rosa login --region=ap-southeast-2 --token="${ROSA_TOKEN}"
-                        rosa whoami
+                        rosa whoami --region=ap-southeast-2
                     """.stripIndent()
                 }
             }
