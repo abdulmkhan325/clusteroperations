@@ -71,11 +71,18 @@ pipeline {
         } 
         // Rosa Login
         stage('ROSA Login') {
-            steps { 
-                sh """ 
-                    rosa login --token="${ROSA_TOKEN}"
-                    rosa whoami
-                    """.stripIndent()    
+            steps {
+                withCredentials([[
+                    $class: 'AmazonWebServicesCredentialsBinding', 
+                    credentialsId: "${AWS_CREDENTIALS_ID}",
+                    accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+                    secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
+                ]]) {
+                    sh """  
+                        rosa login --token="${ROSA_TOKEN}"
+                        rosa whoami
+                    """.stripIndent()
+                }
             }
         }  
     }
