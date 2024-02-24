@@ -93,9 +93,11 @@ pipeline {
         }  
         // Docker login
         stage("Docker Login"){
-            sh """
-              docker login -u ${dockerUserName} -p ${DOCKER_PASS} ${dockerRepo}
-            """
+            steps { 
+                sh """
+                    docker login -u ${dockerUserName} -p ${DOCKER_PASS} ${dockerRepo}
+                """
+            }
         }
     }
 }
