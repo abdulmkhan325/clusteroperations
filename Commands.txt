@@ -84,3 +84,16 @@ wget https://mirror.openshift.com/pub/openshift-v4/clients/rosa/latest/rosa-linu
 
 
 rosa login --token="eyJhbGciOiJIUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJhZDUyMjdhMy1iY2ZkLTRjZjAtYTdiNi0zOTk4MzVhMDg1NjYifQ.eyJpYXQiOjE3MDg2NzkyODMsImp0aSI6IjZjOTgxMGNmLWViOTUtNGQ2MC1hNWNjLTkzNzRhMGQwNTYyNyIsImlzcyI6Imh0dHBzOi8vc3NvLnJlZGhhdC5jb20vYXV0aC9yZWFsbXMvcmVkaGF0LWV4dGVybmFsIiwiYXVkIjoiaHR0cHM6Ly9zc28ucmVkaGF0LmNvbS9hdXRoL3JlYWxtcy9yZWRoYXQtZXh0ZXJuYWwiLCJzdWIiOiJmOjUyOGQ3NmZmLWY3MDgtNDNlZC04Y2Q1LWZlMTZmNGZlMGNlNjphYmR1bG1hamlka2hhbjU5IiwidHlwIjoiT2ZmbGluZSIsImF6cCI6ImNsb3VkLXNlcnZpY2VzIiwibm9uY2UiOiIzYjUzMmU4ZS01ZjkyLTQxMTktOGM3Yy0xYmFiYWM0MmFiOGQiLCJzZXNzaW9uX3N0YXRlIjoiNGE2MTg3M2UtNTdiNS00MzBiLWJhOGQtYzFlZmMxMWZjODhiIiwic2NvcGUiOiJvcGVuaWQgYXBpLmlhbS5zZXJ2aWNlX2FjY291bnRzIG9mZmxpbmVfYWNjZXNzIiwic2lkIjoiNGE2MTg3M2UtNTdiNS00MzBiLWJhOGQtYzFlZmMxMWZjODhiIn0.rn2ayHTjFBI-Kdjs5KiAmMRNCJdv_1YDuv1RvLa1gfI"
+
+
+
+
+
+                    if [ $(getent group docker) ]; then  
+                        echo "docker group exists"  
+                        sudo usermod -aG docker jenkins
+                    else  
+                        echo "group does not exist."
+                        sudo groupadd docker
+                        sudo usermod -aG docker jenkins
+                    fi 

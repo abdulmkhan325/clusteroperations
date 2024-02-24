@@ -63,14 +63,7 @@ pipeline {
         stage('Docker Setup and Start it') {
             steps {
                 sh  """
-                    if [ $(getent group docker) ]; then  
-                        echo "docker group exists"  
-                        sudo usermod -aG docker jenkins
-                    else  
-                        echo "group does not exist."
-                        sudo groupadd docker
-                        sudo usermod -aG docker jenkins
-                    fi 
+                    echo Hello World
                     """.stripIndent()
                    
             }
