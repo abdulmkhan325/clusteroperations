@@ -79,7 +79,7 @@ pipeline {
                     secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
                 ]]) {
                     sh """  
-                        rosa login --region="ap-southeast-2" --token="${ROSA_TOKEN}"
+                        rosa login --region=ap-southeast-2 --token="${ROSA_TOKEN}"
                         rosa whoami
                     """.stripIndent()
                 }
