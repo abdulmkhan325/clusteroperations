@@ -73,6 +73,7 @@ pipeline {
         stage('ROSA Login') {
             steps { 
                 sh """ 
+                    rosa login --token="${ROSA_TOKEN}"
                     rosa whoami
                     """.stripIndent()    
             }
