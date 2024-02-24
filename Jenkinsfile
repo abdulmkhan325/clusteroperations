@@ -73,9 +73,8 @@ pipeline {
                     fi 
                     """.stripIndent()
                    
-                }
             }
-        } 
+        }
         // Rosa Download and Install
         stage('ROSA Download and Install') {
             steps {
