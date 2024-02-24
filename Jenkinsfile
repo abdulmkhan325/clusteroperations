@@ -60,21 +60,21 @@ pipeline {
             }
         } 
         // Setup Docker 
-        stage('Docker Setup and Start it') {
-            steps {
-                sh  """
-                    if getent group docker >/dev/null; then  
-                        echo "docker group exists"  
-                        sudo usermod -aG docker jenkins
-                    else  
-                        echo "docker group does not exist."
-                        sudo groupadd docker
-                        sudo usermod -aG docker jenkins
-                    fi
-                    """.stripIndent()
+        // stage('Docker Setup and Start it') {
+        //     steps {
+        //         sh  """
+        //             if getent group docker >/dev/null; then  
+        //                 echo "docker group exists"  
+        //                 sudo usermod -aG docker jenkins
+        //             else  
+        //                 echo "docker group does not exist."
+        //                 sudo groupadd docker
+        //                 sudo usermod -aG docker jenkins
+        //             fi
+        //             """.stripIndent()
                    
-            }
-        }
+        //     }
+        // }
         // Rosa Download and Install
         stage('ROSA Download and Install') {
             steps {
