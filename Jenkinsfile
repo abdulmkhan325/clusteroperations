@@ -1,5 +1,5 @@
 import java.text.SimpleDateFormat
-import java.util.Date
+import java.util.Date 
 
 def date = new Date()
 def dateStamp = new SimpleDateFormat("yyyy-MM-dd").format(date)
@@ -73,6 +73,7 @@ pipeline {
         stage('ROSA Login') {
             steps {
                 withCredentials([[ 
+                    $class: 'AmazonWebServicesCredentialsBinding',
                     credentialsId: "${AWS_CREDENTIALS_ID}",
                     accessKeyVariable: 'AWS_ACCESS_KEY_ID',
                     secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
