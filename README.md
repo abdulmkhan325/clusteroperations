@@ -1,11 +1,13 @@
 # React App Deployment Using Red Hat OpenShift Service on AWS (ROSA)
 
-This project deploys a React App on AWS through Red Hat OpenShift Service (ROSA Cluster) using an orchestrated workflow via OpenShift Tekton. The process starts with an Ansible playbook that creates a ROSA cluster with a bash script. Tasks include building the React App, conducting tests, and deploying it on the OpenShift cluster. The React App is containerized with Docker and orchestrated using the OpenShift Container Platform. 
+This project deploys a React App on AWS through Red Hat OpenShift Service (ROSA Cluster) using a CI/CD workflow via Jenkins. The CI/CD process starts with an Ansible playbook that creates a ROSA cluster with a bash script. Tasks include building the React App, conducting tests, and deploying it on the OpenShift cluster. The React App is containerized with Docker and orchestrated using Kubernetes Operators written in Go.
+
+# Skills Used: Shell Scripting, RedHat OpenShift Service on AWS, Jenkins CI/CD, Ansible, Docker, Kubernetes, Golang
 
 # The pipeline strucutre:
 
 ### React Web App: 
-it is a simple website.
+it is a simple To-do web app.
 
 ### Ansible:
 Ansible Playbook: Orchestrates different roles for specific tasks related to the application.
