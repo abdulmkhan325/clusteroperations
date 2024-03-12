@@ -2,7 +2,8 @@
 
 This project deploys a React App on AWS through Red Hat OpenShift Service (ROSA Cluster) using a CI/CD workflow via Jenkins. The CI/CD process starts with an Ansible playbook that creates a ROSA cluster with a bash script. Tasks include building the React App, conducting tests, and deploying it on the OpenShift cluster. The React App is containerized with Docker and orchestrated using Kubernetes Operators written in Go.
 
-# Skills Used: Shell Scripting, RedHat OpenShift Service on AWS, Jenkins CI/CD, Ansible, Docker, Kubernetes, Golang
+### Skills Used: 
+Shell Scripting, RedHat OpenShift Service on AWS, Jenkins CI/CD, Ansible, Docker, Kubernetes, Golang
 
 # The pipeline strucutre:
 
